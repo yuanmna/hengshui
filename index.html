@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 导入依赖 -->
+<link rel="stylesheet" href="https://lib.baomitu.com/ol3/3.21.0-beta.2/ol.css">
+<script src="https://lib.baomitu.com/ol3/3.21.0-beta.2/ol.js"></script>
+<style>
+    html,body,
+    #map{
+        width: 100%;
+        height: 100%;
+    }
+    .ol-zoom-extent{
+        top: 8.643em;
+    left: 0.5em
+    }
+</style>
+</head>
+
+<body>
+<!-- 设置挂载点     -->
+<div id="map"></div></div>
+<script>
+    // 初始化一个高德图层
+    const gaode = new ol.layer.Tile({
+        title:"高德地图",
+        source: new ol.source.XYZ({
+            url:'https://webrd04.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=7&x={x}&y={y}&z={z}'
+        })
+    })
+    // 初始化openlayer地图
+    const map = new ol.Map({
+        // 将初始化的地图舍之道id为map的dom元素上
+        target:'map',
+    // 设置图层
+        layers:[gaode],
+        view:new ol.View({
+            center:[115.9654,37.3461],
+            zoom:15,
+            projection:"EPSG:4326"
+        })
+    })
+    //  视图跳转控件
+   
+    const ZoomToExtent = new ol.control.ZoomToExtent({
+        extent:[114.9654,37.3461,115.9654,37.3461]
+    })
+    map.addControl(ZoomToExtent)
+</script>
+</body>
+</html>
